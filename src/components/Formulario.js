@@ -50,7 +50,7 @@ const Error = styled.div`
   margin-bottom: 2rem;
 `;
 
-const Formulario = ({ setResume }) => {
+const Formulario = ({ setResume, setLoading }) => {
   const [datos, setDatos] = useState({
     marca: "",
     year: "",
@@ -86,10 +86,16 @@ const Formulario = ({ setResume }) => {
 
     const incrementoPlan = obtenerPlan(plan);
     resultado = parseFloat(incrementoPlan * resultado).toFixed(2);
-    setResume({
-      cotizacion: resultado,
-      datos,
-    });
+
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setResume({
+        cotizacion: resultado,
+        datos,
+      });
+    }, 3000);
   };
   return (
     <form onSubmit={handleSubmit}>
