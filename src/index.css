@@ -1,6 +1,11 @@
 html {
   box-sizing: border-box;
 }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 body {
   background: #e96443; /* fallback for old browsers */
   background: -webkit-linear-gradient(

@@ -1,9 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { primeraMayuscula } from "../helpers";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 
 const ContenedorResumen = styled.div`
-  padding: 1px;
+  padding: 1rem;
   text-align: center;
   background-color: #00838f;
   color: #fff;
@@ -18,7 +19,7 @@ const Resumen = ({ datos }) => {
   }
   return (
     <ContenedorResumen>
-      <h2>Resumen de Cotizacion</h2>
+      <h2>Resumen de Cotización</h2>
       <ul>
         <li>Marca: {primeraMayuscula(marca)}</li>
         <li>Plan: {primeraMayuscula(plan)}</li>
@@ -26,6 +27,10 @@ const Resumen = ({ datos }) => {
       </ul>
     </ContenedorResumen>
   );
+};
+
+Resumen.propTypes = {
+  datos: PropTypes.object.isRequired,
 };
 
 export default Resumen;

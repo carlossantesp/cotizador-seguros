@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
 const Mensaje = styled.p`
   background-color: rgb(127, 224, 237);
@@ -18,7 +19,7 @@ const ResultadoCotizacion = styled.div`
   position: relative;
 `;
 
-const TextoCotizacion = styled.p`
+const TextoCotizacion = styled.span`
   color: #00838f;
   padding: 1rem;
   text-transform: uppercase;
@@ -42,6 +43,10 @@ const Resultado = ({ cotizacion }) => {
       </TransitionGroup>
     </ResultadoCotizacion>
   );
+};
+
+Resultado.propTypes = {
+  cotizacion: PropTypes.number.isRequired,
 };
 
 export default Resultado;
