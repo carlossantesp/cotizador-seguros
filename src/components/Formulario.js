@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 const Campo = styled.div`
@@ -41,12 +41,46 @@ const Boton = styled.button`
   }
 `;
 
+const Error = styled.div`
+  background-color: red;
+  color: white;
+  padding: 1em;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
 const Formulario = () => {
+  const [datos, setDatos] = useState({
+    marca: "",
+    year: "",
+    plan: "",
+  });
+  const [error, setError] = useState(false);
+
+  const { marca, year, plan } = datos;
+
+  const handleDatos = (e) => {
+    setDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (marca.trim() === "" || year.trim() === "" || plan.trim() === "") {
+      setError(true);
+      return;
+    }
+    setError(false);
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
+      {error ? <Error>Todos los campos son obligatorios</Error> : null}
       <Campo>
         <Label htmlFor="marca">Marca</Label>
-        <Select name="marca">
+        <Select name="marca" value={marca} onChange={handleDatos}>
           <option value="">-- Seleccione --</option>
           <option value="americano">Americano</option>
           <option value="europeo">Europeo</option>
@@ -56,7 +90,7 @@ const Formulario = () => {
 
       <Campo>
         <Label htmlFor="year">Año</Label>
-        <Select name="year">
+        <Select name="year" value={year} onChange={handleDatos}>
           <option value="">-- Seleccione --</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>
@@ -73,11 +107,25 @@ const Formulario = () => {
 
       <Campo>
         <Label htmlFor="plan">Plan</Label>
-        <InputRadio type="radio" name="plan" value="basico" /> Básico
-        <InputRadio type="radio" name="plan" value="completo" /> Completo
+        <InputRadio
+          type="radio"
+          name="plan"
+          value="basico"
+          checked={plan === "basico"}
+          onChange={handleDatos}
+        />{" "}
+        Básico
+        <InputRadio
+          type="radio"
+          name="plan"
+          value="completo"
+          checked={plan === "completo"}
+          onChange={handleDatos}
+        />{" "}
+        Completo
       </Campo>
 
-      <Boton type="button">Cotizar</Boton>
+      <Boton type="submit">Cotizar</Boton>
     </form>
   );
 };
